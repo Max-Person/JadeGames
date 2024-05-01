@@ -71,8 +71,10 @@ public class Ship {
     public static Ship createRandomShip(int length, int oceanDimX, int oceanDimY) {
         Random random = RandomUtils.random;
         boolean isHorizontal = random.nextBoolean();
-        int tipX = random.nextInt(oceanDimX - (isHorizontal ? (length - 1) : 0));
-        int tipY = random.nextInt(oceanDimY - (!isHorizontal ? (length - 1) : 0));
-        return new Ship(length, isHorizontal, new Point(tipX, tipY));
+        Point tip = RandomUtils.randomPoint(
+            oceanDimX - (isHorizontal ? (length - 1) : 0),
+            oceanDimY - (!isHorizontal ? (length - 1) : 0)
+        );
+        return new Ship(length, isHorizontal, tip);
     }
 }

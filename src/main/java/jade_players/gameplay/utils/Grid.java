@@ -184,7 +184,11 @@ public class Grid<T> implements Map<Point, Grid.Cell<T>> {
         }
         
         public Map<Direction, Cell<T>> getNeighbors(){
-            Map<Direction, Point> neighborPoints = point.getNeighbors();
+            return getNeighbors(Direction.values());
+        }
+        
+        public Map<Direction, Cell<T>> getNeighbors(Direction... directions){
+            Map<Direction, Point> neighborPoints = point.getNeighbors(directions);
             Map<Direction, Cell<T>> neighborCells = new HashMap<>();
             neighborPoints.forEach((dir, p) -> {
                 Cell<T> cell = grid.get(p);
@@ -193,6 +197,21 @@ public class Grid<T> implements Map<Point, Grid.Cell<T>> {
                 }
             });
             return neighborCells;
+        }
+        
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Cell<?> cell = (Cell<?>) o;
+            return Objects.equals(grid, cell.grid)
+                && Objects.equals(point, cell.point)
+                && Objects.equals(content, cell.content);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Objects.hash(grid, point, content);
         }
     }
 }

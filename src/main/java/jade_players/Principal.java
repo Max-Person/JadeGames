@@ -3,6 +3,7 @@ package jade_players;
 
 import jade.tools.rma.rma;
 import jade.tools.sniffer.Sniffer;
+import jade_players.gameplay.battleship.BattleshipAgent;
 import jade_players.match_making.MatchMakerAgent;
 import jade_players.gameplay.SamplePlayerAgent;
 import jade.core.Profile;
@@ -172,15 +173,15 @@ public class Principal {
 		createOneAgent(
 			containerController,
 			"BIBA",
-			SamplePlayerAgent.class.getName(),
+			BattleshipAgent.class.getName(),
 			agentList,
-			new Object[0]
+			new Object[]{"log"}
 		);
 		
 		createOneAgent(
 			containerController,
 			"BOBA",
-			SamplePlayerAgent.class.getName(),
+			BattleshipAgent.class.getName(),
 			agentList,
 			new Object[0]
 		);

@@ -20,16 +20,20 @@ public abstract class ShipGeneration {
         4
     );
     
-    public static void main(String[] args) {
-        generateShipsInOcean(Ocean.OCEAN_DIM);
+    public static int getShipCellsCount(){
+        return SHIP_LENGTHS.stream().mapToInt(Integer::intValue).sum();
     }
     
-    public static Ocean generateShipsInOcean(int oceanDim){
-        Ocean ocean = new Ocean(oceanDim);
+    public static void main(String[] args) {
+        generateFriendlyOcean(Ocean.OCEAN_DIM);
+    }
+    
+    public static Ocean generateFriendlyOcean(int oceanDim){
+        Ocean ocean = Ocean.friendly(oceanDim);
         List<Integer> shipLengths = new ArrayList<>(SHIP_LENGTHS);
         Collections.reverse(shipLengths);
         placeShipRandomly(ocean, shipLengths, 0, SHIP_GEN_MAX_TRIES);
-        ocean.print();
+//        ocean.print();
         return ocean;
     }
     

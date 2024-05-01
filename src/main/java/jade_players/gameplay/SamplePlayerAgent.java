@@ -1,5 +1,7 @@
 package jade_players.gameplay;
 
+import jade_players.gameplay.utils.RandomUtils;
+
 /**
  * Игрок тестовой игры - каждый игрок увеличивает внутренний счетчик на рандомное число.
  * Кто первый дойдет от 0 до 10 - победил
@@ -12,14 +14,14 @@ public class SamplePlayerAgent extends PlayerAgent{
     private int count = 0;
     
     @Override
-    protected TurnEffect processOpponentsTurn(String opponentTurnMessageContent) {
+    protected TurnResult processOpponentsTurn(String opponentTurnMessageContent) {
         int opponentCount = Integer.parseInt(opponentTurnMessageContent);
-        return isWinningState(opponentCount) ? TurnEffect.i_lost : TurnEffect.game_continues;
+        return isWinningState(opponentCount) ? TurnResult.iLost() : TurnResult.gameContinues();
     }
     
     @Override
-    protected TurnResult takeYourTurn() {
-        int inc = random.nextInt(1, 4);
+    protected TurnResult takeYourTurn(TurnResult opponentsTurnResult) {
+        int inc = RandomUtils.random.nextInt(1, 4);
         count += inc;
         System.out.println(getLocalName() + " - " + count);
         return isWinningState(count)
