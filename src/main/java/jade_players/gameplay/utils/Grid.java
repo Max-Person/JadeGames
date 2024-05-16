@@ -32,6 +32,11 @@ public class Grid<T> implements Map<Point, Grid.Cell<T>> {
         this.initCellContent = initCellContent;
     }
     
+    public Grid(Grid<T> other){
+        this(other.dimX, other.dimY, other.initCellContent);
+        this.putAll(other);
+    }
+    
     @Override
     public int size() {
         return dimX * dimY;
@@ -153,6 +158,14 @@ public class Grid<T> implements Map<Point, Grid.Cell<T>> {
         ).collect(Collectors.toList());
     }
     
+    public List<Cell<T>> getColumn(int x){
+        return asColumns().get(x);
+    }
+    
+    public List<Cell<T>> getRow(int y){
+        return asRows().get(y);
+    }
+    
     public static class Cell<T>{
         private final Grid<T> grid;
         
@@ -181,6 +194,20 @@ public class Grid<T> implements Map<Point, Grid.Cell<T>> {
             List<Cell<T>> list = new ArrayList<>(getNeighbors().values());
             list.add(0, this);
             return list;
+        }
+        
+        public List<Cell<T>> getCellsInDirection(Direction direction, int length){
+            List<Cell<T>> cells = new ArrayList<>();
+            Cell<T> currentCell = this;
+            for (int i = 0; i < length && currentCell != null; i++) {
+                cells.add(currentCell);
+                currentCell = currentCell.getNeighbor(direction).orElse(null);
+            }
+            return cells;
+        }
+        
+        public Optional<Cell<T>> getNeighbor(Direction direction){
+            return Optional.ofNullable(getNeighbors(direction).get(direction));
         }
         
         public Map<Direction, Cell<T>> getNeighbors(){
