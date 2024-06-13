@@ -4,12 +4,16 @@ package jade_players;
 import jade.tools.rma.rma;
 import jade.tools.sniffer.Sniffer;
 import jade_players.gameplay.battleship.BattleshipAgent;
+import jade_players.gameplay.ticTacToe.DefaultPlayer;
+import jade_players.gameplay.ticTacToe.StrongPlayer;
+import jade_players.gameplay.ticTacToe.TicTacToeAgent;
 import jade_players.match_making.MatchMakerAgent;
 import jade_players.gameplay.SamplePlayerAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.wrapper.*;
+import kotlin.random.Random;
 
 import java.io.IOException;
 import java.util.*;
@@ -172,18 +176,18 @@ public class Principal {
 		
 		createOneAgent(
 			containerController,
-			"BIBA",
-			BattleshipAgent.class.getName(),
+			"StrongPlayer",
+				StrongPlayer.class.getName(),
 			agentList,
 			new Object[]{"log"}
 		);
 		
 		createOneAgent(
 			containerController,
-			"BOBA",
-			BattleshipAgent.class.getName(),
+			"DefaultPlayer",
+				DefaultPlayer.class.getName(),
 			agentList,
-			new Object[0]
+			new Object[]{"log"}
 		);
 		
 

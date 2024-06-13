@@ -108,7 +108,9 @@ public abstract class PlayerAgent extends Agent {
         return 1.5;
     }
     
-    
+    protected void onMatchFoundAgent(boolean isFirst) {
+
+    }
     
     private class PairUpBehaviour extends PairedContestantBehaviour {
         
@@ -119,10 +121,11 @@ public abstract class PlayerAgent extends Agent {
         
         @Override
         protected void onMatchFound(boolean isFirst, AID opponent) {
-            if(myAgent instanceof PlayerAgent playerAgent){
+            if(myAgent instanceof PlayerAgent playerAgent) {
                 playerAgent.addBehaviour(new PlayBehaviour(playerAgent));
                 playerAgent.opponent = opponent;
                 playerAgent.playState = isFirst ? PlayState.playingThinking : PlayState.playingWaiting;
+                onMatchFoundAgent(isFirst);
             }
             else throw new IllegalStateException();
         }
